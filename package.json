@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {
     "egg-sequelize-auto": "bin/egg-sequelize-auto",
-    "sequelize-auto":"bin/sequelize-auto"
+    "sequelize-auto": "bin/sequelize-auto"
   },
   "scripts": {
     "test": "node ./bin/egg-sequelize-auto -c ./config.json"

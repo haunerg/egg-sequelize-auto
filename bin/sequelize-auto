@@ -4,10 +4,11 @@ var sequelizeAuto = require('../');
 var path = require('path');
 var Sequelize = require('sequelize');
 var _ = require('lodash');
+const { config } = require('yargs');
 
 var argv = require('yargs')
   .usage('Usage: sequelize-auto -h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models] -t [tableName]')
-  .demand(['h', 'd'])
+  // .demand(['h', 'd'])
   .alias('h', 'host')
   .alias('d', 'database')
   .alias('u', 'user')
@@ -69,6 +70,10 @@ configFile.tables = configFile.tables || (argv.t && argv.t.split(',')) || null;
 configFile.skipTables = configFile.skipTables || (argv.T && argv.T.split(',')) || null;
 configFile.camelCase = !!argv.C;
 configFile.schema = argv.s || configFile.schema;
+configFile.database = argv.d || configFile.database;
+configFile.username = argv.u || configFile.username;
+configFile.password = argv.x || configFile.password;
+
 
 function getDefaultPort(dialect) {
     switch (dialect.toLowerCase()) {
@@ -81,7 +86,7 @@ function getDefaultPort(dialect) {
     }
 }
 
-var auto = new sequelizeAuto(argv.d, argv.u, (!! argv.x ? ('' + argv.x) : null), configFile);
+var auto = new sequelizeAuto(configFile.database, configFile.username, (!! configFile.password ? ('' + configFile.password) : null), configFile);
 
 auto.run(function (err) {
   if (err) throw err;
