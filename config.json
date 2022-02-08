@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "username": "root",
+  "password": null,
+  "database": "test",
+  "dialect": "mysql",
+  "logging": false
+}
